@@ -11,7 +11,7 @@
                 </div>
                 </div>
                 <div class="peer peer-greed">
-                <h5 class="lh-1 mB-0 logo-text">Iglesia</h5>
+                <h5 class="lh-1 mB-0 logo-text">CEOP</h5>
                 </div>
             </div>
             </a>

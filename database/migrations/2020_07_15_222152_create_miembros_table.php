@@ -21,8 +21,11 @@ class CreateMiembrosTable extends Migration
             $table->integer('Genero');
             $table->string('EstadoCivil',10);
             $table->date('FechaNac');
-            $table->string('Imagen',50)->nullable();
-            $table->timestamps();
+            $table->date('FechaIngreso');
+            $table->integer('Grupo')->nullable();
+            $table->integer('Ministerio')->nullable();
+            $table->boolean('Condicion')->default(1);
+            $table->string('Imagen',100)->nullable();
         });
          //Permite insertar roles
         //  DB::table('miembros')->insert(array('id'=>'1','Nombre'=>'Administrador'));

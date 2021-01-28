@@ -8,7 +8,7 @@ class Grupo extends Model
 {
     protected $fillable = [
         'Nombre',
-        'Encargado',
+        'Encargado'
     ];    
     public $timestamps = false;
 }

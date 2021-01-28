@@ -80,7 +80,6 @@
                       <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
                       <i class="ti-bell"></i>
                       </a>
-
                       <ul class="dropdown-menu">
                       <li class="pX-20 pY-15 bdB">
                           <i class="ti-bell pR-10"></i>
@@ -91,7 +90,7 @@
                           <li>
                               <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
                               <div class="peer mR-15">
-                                  <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
+                                  <img class="w-3r bdrs-50p" src="" alt="">
                               </div>
                               <div class="peer peer-greed">
                                   <span>
@@ -239,7 +238,7 @@
                   <li class="dropdown">
                       <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
                       <div class="peer mR-10">
-                          <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+                          <img class="w-2r bdrs-50p" src="" alt="">
                       </div>
                       <div class="peer">
                           <span class="fsz-sm c-grey-900">{{ Auth::user()->usuario}}</span>

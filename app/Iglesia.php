@@ -8,14 +8,12 @@ class Iglesia extends Model
 {
     protected $fillable = [
         'ID_Miembro',
-        'FechaIngreso',
         'FechaConversion',
         'Bautizado',
         'FechaBautizo',
         'Iglesia',
-        'Grupo',
-        'Ministerio',
         'FechaDeceso',
+        'Deceso',
     ];    
     public $timestamps = false;
 }

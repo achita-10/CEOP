@@ -17,14 +17,14 @@ class CreateIglesiasTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('ID_Miembro')->unsigned();
             $table->foreign('ID_Miembro')->references('id')->on('Miembros');
-            $table->date('FechaIngreso')->nullable();
+            
             $table->date('FechaConversion')->nullable();
             $table->string('Bautizado',10)->nullable();
             $table->date('FechaBautizo')->nullable();
             $table->string('Iglesia',60)->nullable();
-            $table->string('Grupo',10)->nullable();
-            $table->string('Ministerio',10)->nullable();
+            
             $table->date('FechaDeceso')->nullable();
+            $table->integer('Deceso')->nullable();
             // $table->timestamps();
         });
     }

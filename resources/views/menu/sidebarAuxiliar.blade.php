@@ -11,7 +11,7 @@
                 </div>
                 </div>
                 <div class="peer peer-greed">
-                <h5 class="lh-1 mB-0 logo-text">Iglesia</h5>
+                <h5 class="lh-1 mB-0 logo-text">CEOP</h5>
                 </div>
             </div>
             </a>
@@ -106,6 +106,44 @@
             <ul class="dropdown-menu">
                 <li>
                     <a href="#" @click="menu=4">Visitantes</a>
+                </li>
+                <!-- <li>
+                    <a href="vector-maps.html">Vector Map</a>
+                </li> -->
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="#">
+                <span class="icon-holder">
+                    <i class="c-red-500 el-icon-first-aid-kit"></i>
+                </span>
+                <span class="title">Decesos</span>
+                <span class="arrow">
+                    <i class="ti-angle-right"></i>
+                </span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" @click="menu=6">Decesos</a>
+                </li>
+                <!-- <li>
+                    <a href="vector-maps.html">Vector Map</a>
+                </li> -->
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="#">
+                <span class="icon-holder">
+                    <i class="c-yellow-500 el-icon-folder-opened"></i>
+                </span>
+                <span class="title">Reportes</span>
+                <span class="arrow">
+                    <i class="ti-angle-right"></i>
+                </span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" @click="menu=7">Reportes</a>
                 </li>
                 <!-- <li>
                     <a href="vector-maps.html">Vector Map</a>

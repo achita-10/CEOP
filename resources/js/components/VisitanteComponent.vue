@@ -7,45 +7,62 @@
                 <div slot="header" class="clearfix">
                   <span>Visitantes</span>
                   <el-button style="float: right; padding: 3px 0"  @click="mostrarModal('visitante','registrar')" type="text">Registrar</el-button>
-                </div>
-                <div  class="text item">
-                  <el-table
-                    :data="arrayVisitantes.filter(data => !search ||  data.Nombre.toLowerCase().includes(search.toLowerCase()) || data.Apellido_P.toLowerCase().includes(search.toLowerCase()) || data.Apellido_M.toLowerCase().includes(search.toLowerCase()) )"
-                    style="width: 100%"
-                    max-height="330">
-                    <el-table-column
-                    label="id"
-                    prop="id">
-                    </el-table-column>
-                    <el-table-column
-                    label="Nombre"
-                    prop="Nombre">
-                    </el-table-column>
-                    <el-table-column
-                    label="Apellido Paterno"
-                    prop="Apellido_P">
-                    </el-table-column>
-                    <el-table-column
-                    label="Apellido Materno"
-                    prop="Apellido_M">
-                    </el-table-column>
-                    <el-table-column
-                    align="right">
-                    <template slot="header" slot-scope="scope">
-                        <el-input
-                        v-model="search"
-                        size="mini"
-                        placeholder="Buscar"/>
-                    </template>
+                </div>  
+                <el-table
+                  :data="arrayVisitantes.filter(data => !search ||  data.Nombre.toLowerCase().includes(search.toLowerCase()) || data.Apellido_P.toLowerCase().includes(search.toLowerCase()) || data.Apellido_M.toLowerCase().includes(search.toLowerCase()) )"
+                  style="width: 100%;" max-height="400">
+                  <el-table-column
+                  label="id"
+                  prop="id">
+                  </el-table-column>
+                  <el-table-column
+                  label="Foto"
+                  prop="Imagen">
                     <template slot-scope="scope">
-                        <el-button
-                        size="medium"
-                        @click="mostrarModal('visitante','actualizar',scope.row)" type="primary" circle><i class="el-icon-edit"></i></el-button>
+                      <div class="demo-image__preview">
+                        <el-image 
+                          style="width: 60px; height: 60px"
+                          :src="'img/'+scope.row.Imagen" 
+                          >
+                        </el-image>
                         
+                      </div>
+                      <!-- {{srcList.push('img/'+scope.row.Imagen)}} -->
                     </template>
-                    </el-table-column>
-                  </el-table>
-                </div>
+                  </el-table-column>
+                  <el-table-column
+                  label="Nombre"
+                  prop="Nombre">
+                  </el-table-column>
+                  <el-table-column
+                  label="Apellido Paterno"
+                  prop="Apellido_P">
+                  </el-table-column>
+                  <el-table-column
+                  label="Apellido Materno"
+                  prop="Apellido_M">
+                  </el-table-column>
+                  <el-table-column
+                  align="right">
+                  <template slot="header" slot-scope="scope">
+                      <el-input
+                      v-model="search"
+                      size="mini"
+                      placeholder="Buscar"/>
+                  </template>
+                  <template slot-scope="scope">
+                    <section style="text-align:center">
+                      <el-button
+                      title="Actualizar visitante"
+                      size="medium"
+                      @click="mostrarModal('visitante','actualizar',scope.row)" type="primary" circle>
+                        <i class="el-icon-edit"></i>
+                      </el-button>
+                    </section>
+                  </template>
+                  </el-table-column>
+                </el-table>
+                
               </el-card>
                 <a-modal :width="800"  v-model="Modal" :title="tituloModal" on-ok="handleOk">
                   <template slot="footer">

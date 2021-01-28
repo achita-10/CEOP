@@ -26,9 +26,10 @@ import Vuetify from 'vuetify'
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/es'
 // import 'element-ui/lib/theme-chalk/index.css';
-import vSelect from 'vue-select'
+import VueExcelXlsx from "vue-excel-xlsx";
+  
 
-Vue.component('v-select', vSelect);
+    Vue.use(VueExcelXlsx);
 Vue.use(ElementUI, { locale })
 Vue.component('VueEasyLightbox', VueEasyLightbox)
 Vue.component('ImgInputer', ImgInputer)
@@ -49,7 +50,12 @@ Vue.component('miembro-component', require('./components/MiembroComponent.vue').
 Vue.component('grupo-component', require('./components/GrupoComponent.vue').default);   
 Vue.component('ministerio-component', require('./components/MinisterioComponent.vue').default);   
 Vue.component('visitante-component', require('./components/VisitanteComponent.vue').default);    
+Vue.component('deceso-component', require('./components/DecesoComponent.vue').default);    
+Vue.component('reporte-component', require('./components/ReporteComponent.vue').default);    
 Vue.component('usuarios-component', require('./components/UsuariosComponent.vue').default);    
+Vue.component('miembrodos-component', require('./components/MiembroDosComponent.vue').default);    
+Vue.component('grupodos-component', require('./components/GrupoDosComponent.vue').default);    
+Vue.component('ministeriodos-component', require('./components/MinisterioDosComponent.vue').default);    
 // Registra una directiva personalizada global llamada `v-focus`
 
 /**

@@ -51,12 +51,12 @@ class VisitanteController extends Controller
                 $ruta = time().'_'.$img->getClientOriginalName();
                 Storage::disk('img')->put($ruta,file_get_contents($img->getRealPath()));   
             }
-            $visitante->Nombre           =   $request->Nombre;
-            $visitante->Apellido_P      =   $request->Apellido_P;
-            $visitante->Apellido_M          =   $request->Apellido_M;
+            $visitante->Nombre           =   strtoupper($request->Nombre);
+            $visitante->Apellido_P      =   strtoupper($request->Apellido_P);
+            $visitante->Apellido_M          =   strtoupper($request->Apellido_M);
             $visitante->Correo            =   $request->Correo;
             $visitante->Telefono            =   $request->Telefono;
-            $visitante->Congregacion            =   $request->Congregacion;
+            $visitante->Congregacion            =   strtoupper($request->Congregacion);
             $visitante->RedSocial            =   $request->RedSocial;
             $visitante->Imagen           =   $ruta;
             $visitante->save();
@@ -96,12 +96,12 @@ class VisitanteController extends Controller
         if(!$request->ajax()) return redirect('/');
            
         $visitante = Visitante::findOrFail($request->ID);
-            $visitante->Nombre           =   $request->Nombre;
-            $visitante->Apellido_P      =   $request->Apellido_P;
-            $visitante->Apellido_M          =   $request->Apellido_M;
+            $visitante->Nombre           =   strtoupper($request->Nombre);
+            $visitante->Apellido_P      =   strtoupper($request->Apellido_P);
+            $visitante->Apellido_M          =   strtoupper($request->Apellido_M);
             $visitante->Correo            =   $request->Correo;
             $visitante->Telefono            =   $request->Telefono;
-            $visitante->Congregacion            =   $request->Congregacion;
+            $visitante->Congregacion            =   strtoupper($request->Congregacion);
             $visitante->RedSocial            =   $request->RedSocial;
             $visitante->save();
     }

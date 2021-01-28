@@ -3,12 +3,61 @@
     <main class='main-content bgc-grey-100'>
         <div id='mainContent'>
             <!-- <div class="container-fluid"> -->
+              <el-row :gutter="12">
+                    <el-col :xs="24" :sm="12" :md="6"  >
+                      <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                          <span>Miembros</span>
+                        </div>
+                        <div  class="text item">
+                          Miembros activos: <strong>{{ActivosM.length}}</strong> <br>
+                          Miembros inactivos: <strong>{{InactivosM.length}}</strong> <br>
+                          
+                        </div>
+                      </el-card>
+                    </el-col>
+                    <el-col :xs="24" :sm="12" :md="6" >
+                      <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                          <span>Iglesia</span>
+                        </div>
+                        <div  class="text item">
+                          Miembros bautizados: <strong>{{Bautizados.length}}</strong> <br>
+                          Miembros no bautizados: <strong>{{NOBautizos.length}}</strong> 
+                        </div>
+                      </el-card>
+                    </el-col>
+                    <el-col :xs="24" :sm="12" :md="6" >
+                      <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                          <span>Grupos y Ministerios</span>
+                        </div>
+                        <div  class="text item">
+                          Grupos: <strong>{{Grupos.length}}</strong> <br>
+                          Ministerios: <strong>{{Ministerios.length}}</strong>
+                        </div>
+                      </el-card>
+                    </el-col>
+                    <el-col :xs="24" :sm="12" :md="6" >
+                      <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                          <span>Extra</span>
+                        </div>
+                        <div  class="text item">
+                          Miembros fallecidos: <strong>{{Fallecidos.length}}</strong> <br>
+                          Visitantes: <strong>{{Visitantes.length}}</strong>
+                        </div>
+                      </el-card>
+                    </el-col>
+                  </el-row>
               <el-card class="box-card">
                 <div slot="header" class="clearfix">
                   <span>Inicio</span>
                   <el-button style="float: right; padding: 3px 0"  @click="mostrarModal('slider','registrar')" type="text">Registrar</el-button>
+                  
                 </div>
                 <div  class="text item">
+                  
                   <el-carousel :interval="4000" type="card" :height="altura">
                     <el-carousel-item v-for="fit in arrayImagenes" :key="fit.id">
     
@@ -16,7 +65,7 @@
                         <div class="block" >
                           <el-image
                             :style="'width: 100%; height:'+altura+';'"
-                            :src="'public/img/'+fit.Imagen"
+                            :src="'img/'+fit.Imagen"
                             ></el-image>
                         </div>
                       </div>
@@ -35,7 +84,7 @@
                 </template>
                 <el-form  status-icon  label-width="120px" class="demo-ruleForm">
                     <a-row :gutter="16">
-                        <a-col xs:="24" :sm="24" :md="12">
+                        <a-col :xs="24" :sm="24" :md="12">
                           <img-inputer class="img-inputer--large" v-model="file" theme="light" size="large"/>
                         </a-col>
                     </a-row>
@@ -52,6 +101,14 @@
    export default {
     data() {
       return { 
+        Grupos:[],
+        ActivosM:[],
+        Ministerios:[],
+        InactivosM:[],
+        Bautizados:[],
+        NOBautizos:[],
+        Fallecidos:[],
+        Visitantes:[],
         altura:'300px',
         //img slider
         tamaño:'fill',
@@ -77,6 +134,135 @@
       VueEasyLightbox
     },
     methods: {
+      listarGrupos(){
+        let me=this;
+        var url = '/grupo';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.Grupos=respuesta.grupos;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarMiembros(){
+        let me=this;
+        var url = '/miembro/activo';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.ActivosM=respuesta.activos;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarMinisterios(){
+        let me=this;
+        var url = '/ministerio';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.Ministerios=respuesta.ministerios;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarMiembrosInactivos(){
+        let me=this;
+        var url = '/miembro/inactivo';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.InactivosM=respuesta.inactivos;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarBautizados(){
+        let me=this;
+        var url = '/bautizados';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.Bautizados=respuesta.bautizados;
+            
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarNoBautizados(){
+        let me=this;
+        var url = '/nobautizados';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.NOBautizos=respuesta.nobautizados;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarDecesos(){
+        let me=this;
+        var url = '/iglesia';
+        axios.get(url).then(function (response) {
+            // handle success
+            var respuesta = response.data;
+            me.Fallecidos=respuesta.decesos;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+      },
+      listarVisitantes(){
+          let me=this;
+          var url = '/visitante';
+          axios.get(url).then(function (response) {
+              // handle success
+              var respuesta = response.data;
+              me.Visitantes=respuesta.visitantes;
+          })
+          .catch(function (error) {
+              // handle error
+              console.log(error);
+          })
+          .finally(function () {
+              // always executed
+          });
+      },
       listarSlider(){
         let me=this;
           var url = '/slider';
@@ -95,7 +281,7 @@
       },
       //imagen
       showSingle() {
-          this.imgs = 'public/img/' + this.Imagen;
+          this.imgs = 'img/' + this.Imagen;
           this.show()
       },
       show() {
@@ -171,6 +357,14 @@
     },
     mounted(){
       this.listarSlider();
+      this.listarGrupos();
+      this.listarMiembros();
+      this.listarMinisterios();
+      this.listarMiembrosInactivos();
+      this.listarBautizados();
+      this.listarNoBautizados();
+      this.listarDecesos();
+      this.listarVisitantes();
     },
   }
 </script>

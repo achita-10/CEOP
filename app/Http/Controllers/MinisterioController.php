@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ministerio;
+use App\Miembros;
 use Carbon\Carbon;
 class MinisterioController extends Controller
 {
@@ -15,12 +16,29 @@ class MinisterioController extends Controller
     public function index(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $ministerios = Ministerio::orderBy('id','desc')->get();
+        $ministerios = Ministerio::join('miembros','ministerios.Encargado','=','miembros.id')
+        ->select('ministerios.id','ministerios.Nombre as Ministerio','miembros.Nombre as Encargado','ministerios.Fecha','ministerios.Encargado as ID_E','miembros.Apellido_P','miembros.Apellido_M')
+        ->orderBy('ministerios.id','desc')->get();
         return[
             'ministerios'=>$ministerios
         ];
     }
-
+    public function pdf(Request $request)
+    {
+        $mytime = Carbon::now('America/Mexico_City');
+        $Fecha = $mytime->toDateString();
+        $ministerios = Ministerio::join('miembros','ministerios.Encargado','=','miembros.id')
+        ->select('ministerios.id','ministerios.Nombre as NombreS','miembros.Nombre as Encargado','ministerios.Fecha','ministerios.Encargado as ID_E','miembros.Apellido_P','miembros.Apellido_M')
+        ->orderBy('ministerios.id','desc')->get();
+        $cont = ((int) Ministerio::count());
+        $pdf = \PDF::loadView('pdf.GruposMinisterios',['Accion'=>2,'datos'=>$ministerios,'Total'=>$cont,'Fecha'=>$Fecha]);
+        //Horientacion
+        $pdf->setPaper('A4', 'landscape');
+        //portrait, landscape
+        //Metodo para visualizar desde el navegador sin descargar el archivo
+        return $pdf->stream('Ministerios_'.$Fecha.'.pdf');
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -42,10 +60,10 @@ class MinisterioController extends Controller
         $mytime = Carbon::now('America/Mexico_City');
         if(!$request->ajax()) return redirect('/');
         $ministerio = new Ministerio();
-        
-        $ministerio->Nombre      =   $request->Nombre;
-        $ministerio->Encargado =   $request->Encargado;
-        $ministerio->Fecha       =  $mytime->toDateTimeString();
+        // El metodo mb_strtoupper permite convertir a mayuculas carcteres especiales como la ñ
+        $ministerio->Nombre      =   mb_strtoupper($request->Nombre);
+        $ministerio->Encargado =   strtoupper($request->Encargado);
+        $ministerio->Fecha       =  $mytime->toDateString();
         $ministerio->save();
     }
 
@@ -82,9 +100,9 @@ class MinisterioController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
         $ministerio = Ministerio::findOrFail($request->ID);
-        
-        $ministerio->Nombre      =   $request->Nombre;
-        $ministerio->Encargado =   $request->Encargado;
+        // El metodo mb_strtoupper permite convertir a mayuculas carcteres especiales como la ñ
+        $ministerio->Nombre      =   mb_strtoupper($request->Nombre);
+        $ministerio->Encargado =   strtoupper($request->Encargado);
         $ministerio->save();
     }
 
@@ -94,8 +112,10 @@ class MinisterioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if(!$request->ajax()) return redirect('/');
+        $id = $request->id;
+        $eliminado = Ministerio:: where('id','=',$id)->delete();
     }
 }

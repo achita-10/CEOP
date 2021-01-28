@@ -6,17 +6,55 @@
               <el-card class="box-card">
                 <div slot="header" class="clearfix">
                   <span>Miembros</span>
-                 
                   <el-button style="float: right; padding: 3px 0"  @click="mostrarModal('articulo','registrar')" type="text">Registrar</el-button>
                 </div>
-                <div  class="text item">
+                <template v-if="Bautizado==0">
                   <el-table
                     :data="arrayMiembros.filter(data => !search ||  data.Nombre.toLowerCase().includes(search.toLowerCase()) || data.Apellido_P.toLowerCase().includes(search.toLowerCase()) || data.Apellido_M.toLowerCase().includes(search.toLowerCase()) )"
                     style="width: 100%"
-                    max-height="330">
+                    max-height="400">
+                    <el-table-column
+                    v-if="Bautizado==0"
+                    type="expand"
+                    label="Inf"
+                    >
+                      <template slot-scope="props">
+                        <p>Fecha de Ingreso: <strong>{{ props.row.FechaIngreso }}</strong></p> <br>
+                        <p>Fecha de Nacimiento: <strong>{{ props.row.FechaNac }}</strong></p><br>
+                        <p v-if="props.row.EstadoCivil =='1'">Estado civil: <strong>soltero(a)</strong></p>
+                        <p v-else-if="props.row.EstadoCivil =='2'">Estado civil: <strong>casado(a)</strong></p>
+                        <p v-else-if="props.row.EstadoCivil =='3'">Estado civil: <strong>divorciado(a)</strong></p>
+                        <p v-else-if="props.row.EstadoCivil =='4'">Estado civil: <strong>viudo(a)</strong></p>
+                        <p v-else>Estado civil: <strong>Unión libre</strong></p><br>
+                        <p>Papá: <strong>{{ props.row.Padre }}</strong></p><br>
+                        <p> Mamá: <strong>{{ props.row.Madre }}</strong></p><br>
+                        <p>Telefono: <strong>{{ props.row.Telefono }}</strong></p><br>
+                        <p> Ocupación: <strong>{{ props.row.Ocupacion }}</strong></p><br>
+                        <p>Dirección: <strong>{{ props.row.Direccion }}</strong></p><br>
+                        <p> Correo: <strong>{{ props.row.Correo }}</strong></p><br>
+                        <p v-if="props.row.Bautizado=='1'">Bautizado: <strong>Si</strong></p>
+                        <p v-else>Bautizado: <strong>No</strong></p><br>
+                        <p>Iglesia: <strong>{{ props.row.Iglesia }}</strong></p>
+                        <p> Fecha de bautizo: <strong>{{props.row.FechaBautizo}}</strong></p>
+                      </template>
+                    </el-table-column>
                     <el-table-column
                     label="id"
                     prop="id">
+                    </el-table-column>
+                    <el-table-column
+                    label="Foto"
+                    prop="Imagen">
+                      <template slot-scope="scope">
+                        <div class="demo-image__preview">
+                          <el-image 
+                            style="width: 60px; height: 60px"
+                            :src="'img/'+scope.row.Imagen" 
+                            :preview-src-list="srcList">
+                          </el-image>
+                        </div>
+                        <!-- {{srcList.push('img/'+scope.row.Imagen)}} -->
+                      </template>
                     </el-table-column>
                     <el-table-column
                     label="Nombre"
@@ -31,8 +69,11 @@
                     prop="Apellido_M">
                     </el-table-column>
                     <el-table-column
-                    label="Genero"
-                    prop="Genero">
+                    label="Genero">
+                      <template slot-scope="scope">
+                          <span style="margin-left: 10px" v-if="scope.row.Genero==1">HOMBRE</span>
+                          <span style="margin-left: 10px" v-else>MUJER</span>
+                      </template>
                     </el-table-column>
                     <el-table-column
                     align="right">
@@ -43,14 +84,92 @@
                         placeholder="Buscar"/>
                     </template>
                     <template slot-scope="scope">
+                      <section style="text-align:center">
                         <el-button
-                        size="medium"
-                        @click="mostrarModal('articulo','actualizar',scope.row)" type="primary" circle><i class="el-icon-edit"></i></el-button>
-                        
+                        v-if="Bautizado==0  && scope.row.Deceso!=0"
+                          title="Cambiar estado del miembro"
+                          size="small"
+                          @click="desactivarModal(scope.row.id,scope.row.Condicion,scope.row.Motivo)" type="warning" circle>
+                          <i class="el-icon-remove-outline"></i>
+                        </el-button>
+                        <br>
+                        <el-button
+                        v-if="Bautizado==0 && scope.row.Deceso!=0"
+                          title="Deceso de miembro"
+                          size="small"
+                          @click="decesoMiembro(scope.row.id)" type="danger" circle>
+                          <i class="el-icon-remove"></i>
+                        </el-button>
+                        <el-button
+                        v-if="Bautizado==0 && scope.row.Deceso!=0"
+                          title="Actualizar miembro"
+                          size="small"
+                          @click="mostrarModal('articulo','actualizar',scope.row)" type="primary" circle>
+                          <i class="el-icon-edit"></i>
+                        </el-button>
+                      </section>
                     </template>
                     </el-table-column>
                   </el-table>
-                </div>
+                </template>
+                <template v-else>
+                  <el-table
+                    :data="arrayBautizos.filter(data => !search ||  data.Nombre.toLowerCase().includes(search.toLowerCase()) || data.Apellido_P.toLowerCase().includes(search.toLowerCase()) || data.Apellido_M.toLowerCase().includes(search.toLowerCase()) )"
+                    style="width: 100%"
+                    max-height="400">
+                    <el-table-column
+                    v-if="Bautizado==0"
+                    type="expand"
+                    label="Inf"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    label="id"
+                    prop="id">
+                    </el-table-column>
+                    <el-table-column
+                    label="Foto"
+                    prop="Imagen">
+                      <template slot-scope="scope">
+                        <div class="demo-image__preview">
+                          <el-image 
+                            style="width: 60px; height: 60px"
+                            :src="'img/'+scope.row.Imagen" 
+                            :preview-src-list="srcList">
+                          </el-image>
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                    label="Nombre"
+                    prop="Nombre">
+                    </el-table-column>
+                    <el-table-column
+                    label="Apellido Paterno"
+                    prop="Apellido_P">
+                    </el-table-column>
+                    <el-table-column
+                    label="Apellido Materno"
+                    prop="Apellido_M">
+                    </el-table-column>
+                    <el-table-column
+                    label="Genero">
+                      <template slot-scope="scope">
+                          <span style="margin-left: 10px" v-if="scope.row.Genero==1">Hombre</span>
+                          <span style="margin-left: 10px" v-else>Mujer</span>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                    align="right">
+                    <template slot="header" slot-scope="scope">
+                        <el-input
+                        v-model="search"
+                        size="mini"
+                        placeholder="Buscar"/>
+                    </template>
+                    </el-table-column>
+                  </el-table>
+                </template>
               </el-card>
                 <a-modal :width="800"  v-model="Modal" :title="tituloModal" on-ok="handleOk">
                   <template slot="footer" v-if="ActualizarImagen==0">
@@ -82,17 +201,17 @@
                           <el-tab-pane label="Personales" name="first">
                             <a-col :xs="24" :sm="12" :md="8">
                               <el-form-item label="Nombre" prop="Nombre">
-                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Nombre"></el-input>
+                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Nombre" ></el-input>
                               </el-form-item>
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8" >
                               <el-form-item label="Apellido Paterno" prop="Apellido_P">
-                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Apellido_P"></el-input>
+                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Apellido_P" ></el-input>
                               </el-form-item>
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8" >
                               <el-form-item label="Apellido Materno" prop="Apellido_M">
-                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Apellido_M"></el-input>
+                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Apellido_M" ></el-input>
                               </el-form-item>
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8">
@@ -106,6 +225,7 @@
                             <a-col :xs="24" :sm="12" :md="8">
                               <el-form-item label="Estado civil" prop="EstadoCivil">
                                 <el-select  placeholder="Seleccione" v-model="ruleForm.EstadoCivil">
+                                  <el-option  value="">Seleccione</el-option>
                                   <el-option
                                     v-for="civil in arrayEstadoCivil"
                                     :key="civil.value"
@@ -134,7 +254,7 @@
                                   <div class="demo-image__preview">
                                     <el-image 
                                       style="width: 240px; height: 200px"
-                                      :src="'public/img/'+Imagen" 
+                                      :src="'img/'+Imagen" 
                                       :preview-src-list="srcList">
                                     </el-image>
                                   </div>
@@ -199,7 +319,8 @@
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8">
                               <el-form-item label="Bautizado" prop="Bautizado">
-                                <el-select  placeholder="Seleccione" v-model="ruleForm.Bautizado">
+                                <el-select  placeholder="Seleccione" v-model="ruleForm.Bautizado" @change="verificarBautizo">
+                                  <el-option  value="">Seleccione</el-option>
                                   <el-option
                                     label="Si"
                                     value="1">
@@ -214,6 +335,7 @@
                             <a-col :xs="24" :sm="12" :md="8" >
                               <el-form-item label="Fecha de bautizo" prop="FechaBautizo">
                                 <el-date-picker
+                                  :disabled="desactivarCampo"
                                   v-model="ruleForm.FechaBautizo"
                                   type="date"
                                   value-format="yyyy-MM-dd"
@@ -222,8 +344,8 @@
                               </el-form-item>
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8" >
-                              <el-form-item label="Nombre de la iglesia" prop="Iglesia">
-                                <el-input  suffix-icon="el-icon-info"  v-model="ruleForm.Iglesia"></el-input>
+                              <el-form-item label="Nombre de la iglesia de bautizo" prop="Iglesia">
+                                <el-input :disabled="desactivarCampo" suffix-icon="el-icon-info"  v-model="ruleForm.Iglesia"></el-input>
                               </el-form-item>
                             </a-col>
                             <a-col :xs="24" :sm="12" :md="8">
@@ -233,7 +355,7 @@
                                   <el-option
                                     v-for="grupo in arrayGrupos"
                                     :key="grupo.id"
-                                    :label="grupo.Nombre"
+                                    :label="grupo.Grupo"
                                     :value="grupo.id">
                                   </el-option>
                                   
@@ -247,21 +369,10 @@
                                   <el-option
                                     v-for="ministerio in arrayMinisterios"
                                     :key="ministerio.id"
-                                    :label="ministerio.Nombre"
+                                    :label="ministerio.Ministerio"
                                     :value="ministerio.id">
                                   </el-option>
-                                  
                                 </el-select>
-                              </el-form-item>
-                            </a-col>
-                            <a-col :xs="24" :sm="12" :md="8" >
-                              <el-form-item label="Fecha de deceso" prop="FechaDeceso">
-                                <el-date-picker
-                                  v-model="ruleForm.FechaDeceso"
-                                  type="date"
-                                  value-format="yyyy-MM-dd"
-                                  placeholder="seleccione">
-                                </el-date-picker>
                               </el-form-item>
                             </a-col>
                           </el-tab-pane>
@@ -276,7 +387,7 @@
                                   <div class="demo-image__preview">
                                     <el-image 
                                       style="width: 240px; height: 200px"
-                                      :src="'public/img/'+Imagen" 
+                                      :src="'img/'+Imagen" 
                                       :preview-src-list="srcList">
                                     </el-image>
                                   </div>
@@ -286,6 +397,49 @@
                         </template>
                       </el-tabs>
                       
+                    </a-row>
+                  </el-form>
+                </a-modal>
+                <a-modal :width="400" v-model="modalDeceso" title="Miembro fallecido" on-ok="handledOk">
+                  <template slot="footer">
+                    <el-button key="back" @click="cerrarModal" >
+                      Regresar
+                    </el-button>
+                    <el-button  type="success"  @click="fechaDeceso('ruleFormDeceso')">
+                      Guardar
+                    </el-button>
+                  </template>
+                  <el-form size="small" :label-position="labelPosition" status-icon :model="ruleFormDeceso" :rules="rulesdeceso" ref="ruleFormDeceso" label-width="120px" class="demo-ruleForm">
+                    <a-row :gutter="16">
+                      <a-col :xs="24" :sm="16" :md="12">
+                        <el-form-item label="Fecha de deceso" prop="FechaDeceso">
+                            <el-date-picker
+                              v-model="ruleFormDeceso.FechaDeceso"
+                              type="date"
+                              value-format="yyyy-MM-dd"
+                              placeholder="seleccione">
+                            </el-date-picker>
+                        </el-form-item>
+                      </a-col>
+                    </a-row>
+                  </el-form>
+                </a-modal>
+                <a-modal :width="400" v-model="modalDesactivar" title="Desactivar miembro" on-ok="handledOk">
+                  <template slot="footer">
+                    <el-button key="back" @click="cerrarModal" >
+                      Regresar
+                    </el-button>
+                    <el-button  type="success"  @click="desactivar('ruleFormDesactivar')">
+                      Guardar
+                    </el-button>
+                  </template>
+                  <el-form size="small" :label-position="labelPosition" status-icon :model="ruleFormDesactivar" :rules="rulesdesactivar" ref="ruleFormDesactivar" label-width="120px" class="demo-ruleForm">
+                    <a-row :gutter="16">
+                      <a-col :xs="24" :sm="24" :md="24">
+                        <el-form-item label="Motivo" prop="Motivo">
+                          <el-input  suffix-icon="el-icon-info"  v-model="ruleFormDesactivar.Motivo"></el-input>
+                        </el-form-item>
+                      </a-col>
                     </a-row>
                   </el-form>
                 </a-modal>
@@ -317,7 +471,13 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           callback();
         }
       };
-      return { 
+      return {
+        desactivarCampo:false,
+        //Deceso
+        modalDeceso:false,
+        Bautizado:'0',
+        arrayBautizos:[],
+        lista:[],
         //grupos
         arrayGrupos:[],
         //tabs
@@ -349,6 +509,10 @@ import VueEasyLightbox from 'vue-easy-lightbox'
         //modal
         Modal:false,
         tituloModal:'',
+        //modal desactivar
+        modalDesactivar:false,
+        opcionDesactivar:'',
+        MotivoD:'',
         //imagen
         visible:false,
         AccionImagen : 0,
@@ -382,8 +546,24 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           Iglesia:'',
           Grupo:'',
           Ministerio:'',
-          FechaDeceso:'',
 
+        },
+        ruleFormDeceso:{
+          FechaDeceso:'',
+        },
+        ruleFormDesactivar:{
+          Motivo:'',
+        },
+        rulesdesactivar:{
+          Motivo: [
+            { required: true, message: 'Por favor ingrese un motivo', trigger: 'change' },
+            { min: 5, message: 'La longitud debe ser mayor 4 caracteres', trigger: 'blur' },
+          ],
+        },
+        rulesdeceso:{
+          FechaDeceso: [
+            {  required: true, message: 'Por favor seleccione una fecha', trigger: 'change' }
+          ],
         },
         rules: {
           Nombre: [
@@ -400,7 +580,6 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           ],
           Genero: [
             { required: true, message: 'Por favor ingrese el genero', trigger: 'change || blur' },
-            { type: 'number', message: 'El precio solo puede ser valor númerico', trigger: 'blur' }
           ],
           EstadoCivil: [
             { required: true, message: 'Por favor ingrese el estado civil', trigger: 'change' },
@@ -408,12 +587,15 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           FechaNac: [
             {  required: true, message: 'Por favor seleccione una fecha', trigger: 'change' }
           ],
+          FechaIngreso: [
+            {  required: true, message: 'Por favor seleccione una fecha', trigger: 'change' }
+          ],
           Correo:[
             { required: false, message: 'Puede o no ingresar el correo', trigger: 'blur' },
             { type: 'email', message: 'Por favor ingrese un correo valido', trigger: ['blur', 'change'] }
           ],
           Telefono:[
-            {validator: checkTelefono,trigger:'blur'}
+            {validator: checkTelefono,trigger:'blur'},
           ],
           Ocupacion:[
             { required: false, message: 'Puede o no ingresar la ocupación', trigger: 'blur' },
@@ -429,13 +611,31 @@ import VueEasyLightbox from 'vue-easy-lightbox'
     components: {   
       VueEasyLightbox
     },
+    computed:{
+      
+      mostrar: function(){
+        if(this.Manual!==null && this.Manual !=="" && this.FechaIndividual!=null && this.FechaIndividual!=""){
+          this.verificar();
+        }
+      }
+    },
     methods: {
+      
+      verificarBautizo(){
+        if(this.ruleForm.Bautizado==2 || this.ruleForm.Bautizado=="" || this.ruleForm.Bautizado==null){
+          this.desactivarCampo=true;
+          this.ruleForm.FechaBautizo='';
+          this.ruleForm.Iglesia='';
+        }else{
+          this.desactivarCampo=false;
+        }
+      },
       format(percentage) {
         return percentage === 100 ? 'Full' : `${percentage}%`;
       },
       //imagen
       showSingle() {
-          this.imgs = 'public/img/' + this.Imagen;
+          this.imgs = 'img/' + this.Imagen;
           this.show()
       },
       show() {
@@ -444,7 +644,70 @@ import VueEasyLightbox from 'vue-easy-lightbox'
       handleHide() {
           this.visible = false
       },
+      
+      
+      decesoMiembro(id){
+        this.ID_Miembro=id;
+        if(this.$refs.ruleFormDeceso){
+          this.resetForm('ruleFormDeceso'); 
+          this.modalDeceso=true;
+        }else{
+          this.modalDeceso=true;
+        }
+      },
+      fechaDeceso(formName){
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: '¿Desea dar de baja al miembro?',
+            text: "Presione Aceptar o Cancelar para regresar",
+            icon: 'question',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Aceptar',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.value) {
+              let me=this;
+              axios.put('/iglesia/actualizar',{
+                'ID':me.ID_Miembro,
+                'FechaDeceso':me.ruleFormDeceso.FechaDeceso
+              }).then(function (response) {
+                  me.modalDeceso=false;
+                  Swal.fire('Miembro fallecido','','success');
+                  me.listarMiembros();
+              })
+              .catch(function (error) {
+                  // handle error
+                  Swal.fire('Ocurrio un error','','error');
+              })
+              .finally(function () {
+                  // always executed
+              });
+                
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                
+            }
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
       //formulario
+      
       listarMinisterios(){
         let me=this;
         var url = '/ministerio';
@@ -461,6 +724,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
             // always executed
         });
       },
+      
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
@@ -529,7 +793,6 @@ import VueEasyLightbox from 'vue-easy-lightbox'
         data.append('Iglesia', this.ruleForm.Iglesia);
         data.append('Grupo', this.ruleForm.Grupo);
         data.append('Ministerio', this.ruleForm.Ministerio);
-        data.append('FechaDeceso', this.ruleForm.FechaDeceso);
         //Añadimos la imagen seleccionada
         data.append('File', this.file);
 
@@ -573,7 +836,6 @@ import VueEasyLightbox from 'vue-easy-lightbox'
             'Iglesia' : this.ruleForm.Iglesia,
             'Grupo' : this.ruleForm.Grupo,
             'Ministerio' : this.ruleForm.Ministerio,
-            'FechaDeceso' : this.ruleForm.FechaDeceso,
         }).then(function (response) {
             me.Modal=false;
             Swal.fire('Miembro actualizado','','success');
@@ -601,6 +863,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
                       this.resetForm('ruleForm'); 
                     }
                     this.limpiarCampos();
+                    this.verificarBautizo();
                     this.Accion=0;
                     this.AccionImagen = 0;    
                     this.tituloModal='Registrar Miembro';
@@ -632,11 +895,12 @@ import VueEasyLightbox from 'vue-easy-lightbox'
                     this.ruleForm.FechaConversion =   data['FechaConversion'];
                     this.ruleForm.Bautizado =   data['Bautizado'];
                     this.ruleForm.FechaBautizo =   data['FechaBautizo'];
+                    this.verificarBautizo();
                     this.ruleForm.Iglesia =   data['Iglesia'];
                     this.ruleForm.Grupo =   data['Grupo'];
                     this.ruleForm.Ministerio =   data['Ministerio'];
-                    this.ruleForm.FechaDeceso =   data['FechaDeceso'];
-                    
+                    this.Imagen         =   data['Imagen'];
+                    this.srcList.push('img/'+data['Imagen']);
                     break;
                   }
               }
@@ -664,11 +928,12 @@ import VueEasyLightbox from 'vue-easy-lightbox'
         this.ruleForm.Iglesia='';
         this.ruleForm.Grupo='';
         this.ruleForm.Ministerio='';
-        this.ruleForm.FechaDeceso='';
         this.ActualizarImagen   =   0;
       },
       cerrarModal(){
         this.Modal=false;
+        this.modalDeceso=false;
+        this.modalDesactivar=false;
       },
       //funcionalidades, registrar, actualizar etc..
       actualizarImagen(){
@@ -691,6 +956,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           .catch(function (error) {
               // handle error
               console.log(error);
+              Swal.fire('Ocurrio un error al cargar la imagen','','error');
           })
           .finally(function () {
               // always executed
@@ -709,7 +975,122 @@ import VueEasyLightbox from 'vue-easy-lightbox'
         this.tituloModal='Actualizar Miembro';
 
       },
-      
+      desactivarModal(id,opcion,motivo){
+        this.ID_Miembro=id;
+        this.opcionDesactivar=opcion;
+        this.MotivoD=motivo;
+        if(opcion=="1"){
+          this.modalDesactivar=true;
+        }else{
+          this.desactivar("ruleFormDesactivar");
+        }
+      },
+      desactivar(formName){
+        var id= this.ID_Miembro;
+        var opcion = this.opcionDesactivar;
+        var titulo='';
+        if(opcion=='1'){
+          titulo='desactivar';
+          this.$refs[formName].validate(valid => {
+          if(valid){
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Desea '+titulo+' al miembro',
+            text: "Presione Aceptar o Cancelar para regresar",
+            icon: 'question',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Aceptar',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.value) {
+              let me= this;
+              me.estadoDelMiembro(id,opcion);
+                
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                
+            }
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+        }else{
+          titulo='activar';
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Desea '+titulo+' al miembro',
+            text: "El miembro se desactivo por: "+this.MotivoD,
+            icon: 'question',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Aceptar',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.value) {
+              let me= this;
+              me.estadoDelMiembro(id,opcion);
+                
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                
+            }
+            })
+        }
+        
+      },
+      estadoDelMiembro(id,opcion){
+        var titulo='';
+        let me=this;
+        if(opcion=='1'){
+          titulo='desactivado';
+          axios.put('/suspendido/desactivar',{
+            'ID':id,
+            'Motivo': this.ruleFormDesactivar.Motivo,
+          }).then(function(response){
+            me.listarMiembros();
+            me.cerrarModal();
+            Swal.fire('Miembro '+ titulo,'','success');
+          }).catch(function(error){
+            Swal.fire('Ocurrio un error','','error');
+          }).finally(function(){
+
+          })
+        }else{
+          titulo='activado';
+          axios.put('/suspendido/activar',{
+            'ID':id,
+          }).then(function(response){
+            me.listarMiembros();
+            me.cerrarModal();
+            Swal.fire('Miembro '+ titulo,'','success');
+          }).catch(function(error){
+            Swal.fire('Ocurrio un error','','error');
+          }).finally(function(){
+
+          })
+        }
+      },
       listarMiembros(){
           let me=this;
           var url = '/miembro';
@@ -717,6 +1098,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
               // handle success
               var respuesta = response.data;
               me.arrayMiembros=respuesta.miembros;
+
           })
           .catch(function (error) {
               // handle error
@@ -725,6 +1107,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
           .finally(function () {
               // always executed
           });
+          
       },
       listarGrupos(){
           let me=this;
@@ -769,6 +1152,8 @@ import VueEasyLightbox from 'vue-easy-lightbox'
     },
     mounted(){
       this.listarMiembros();
+      this.listarGrupos();
+      this.listarMinisterios();
     },
   }
 </script>

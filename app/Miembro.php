@@ -13,6 +13,15 @@ class Miembro extends Model
         'Genero',
         'EstadoCivil',
         'FechaNac',
-        'Imagen'
+        'FechaIngreso',
+        'Grupo',
+        'Ministerio',
+        'Imagen',
+        'Condicion'
     ];  
+    public $timestamps = false;
+    
+    public function asistencia(){
+        return $this->hasMany('App\Asistencia');
+    }
 }

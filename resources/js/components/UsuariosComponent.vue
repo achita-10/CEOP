@@ -11,8 +11,7 @@
                 <div  class="text item">
                   <el-table
                     :data="arrayUsuarios.filter(data => !search ||  data.Nombre.toLowerCase().includes(search.toLowerCase()) || data.Apellido_P.toLowerCase().includes(search.toLowerCase()) || data.Apellido_M.toLowerCase().includes(search.toLowerCase()) )"
-                    style="width: 100%"
-                    max-height="330">
+                    style="width: 100%;" max-height="400">
                     <el-table-column
                     label="id"
                     prop="id">
@@ -38,10 +37,13 @@
                         placeholder="Buscar"/>
                     </template>
                     <template slot-scope="scope">
-                        <el-button
-                        size="medium"
-                        @click="mostrarModal('usuario','actualizar',scope.row)" type="primary" circle><i class="el-icon-edit"></i></el-button>
-                        
+                        <section style="text-align:center;">
+                          <el-button
+                          size="medium"
+                          @click="mostrarModal('usuario','actualizar',scope.row)" type="primary" circle>
+                            <i class="el-icon-edit"></i>
+                          </el-button>
+                        </section>
                     </template>
                     </el-table-column>
                   </el-table>
