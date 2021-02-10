@@ -21,8 +21,8 @@
 - Con el siguiente comando se van a crear las tablas de la bd: php artisan migration
 
 ### Crear usuario administrador
-- Se debe crear un primer registro en la tabla usuario de la bd
-- Posteriormente crear el usuario para iniciar sesión con el comando: php artisan db:seed
+- Primeramente se debe crear un registro en la tabla usuario de la bd
+- Posteriormente crear el usuario para iniciar sesión ejecutando el siguiente comando en la raiz del proyecto: php artisan db:seed
 - El cual define por defecto como usuario: admin y contraseña: admin
 
 
