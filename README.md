@@ -39,130 +39,82 @@ Start by typing the following commands in your terminal in order to get **Admina
 > npm install
 > npm run dev
 ```
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-## Files/Folders Structure
-Here is a brief explanation of the template folder structure and some of its main files usage:
+## About Laravel
 
-```
-└── src                         # Contains all template source files.
-│   └── assets                  # Contains JS, CSS, images and icon fonts.
-│   │   └── scripts             # Contains all JavaScript files.
-│   │   │   └── charts          # Chart.js, Sparkline & Pie Chart plugins init.
-│   │   │   └── chat            # All chat app JS code.
-│   │   │   └── constants       # Template constant values like color values.
-│   │   │   └── datatable       # Date table plugin init.
-│   │   │   └── datepicker      # Bootstrap datepicker init.
-│   │   │   └── email           # All email app code.
-│   │   │   └── fullcalendar    # Fullcalendar plugin init.
-│   │   │   └── googleMaps      # Google maps API integration code.
-│   │   │   └── masonry         # Masonry layout code.
-│   │   │   └── popover         # Bootstrap popover plugin init.
-│   │   │   └── scrollbar       # Perfect scrollbar plugin init.
-│   │   │   └── search          # Topbar toggle search init.
-│   │   │   └── sidebar         # Sidebar JS code.
-│   │   │   └── skycons         # Animated icons plugin init.
-│   │   │   └── utils           # Basic utils used for proper rendering.
-│   │   │   └── vectorMaps      # Vector maps plugin init.
-│   │   │   └── index.js        # Indicator file.
-│   │   │
-│   │   └── static              # Contains the non-code files.
-│   │   │   └── fonts           # Contains icon fonts.
-│   │   │   └── images          # Contains all template images/svg.
-│   │   │
-│   │   └── styles              # Contains all SCSS files.
-│   │       └── spec            # Contains custom SCSS files.
-│   │       │   └── components  # Contains all template components.
-│   │       │   └── generic     # Contains basic scaffolding styles.
-│   │       │   └── screens     # Contains views specific styles.
-│   │       │   └── settings    # Contains all template variables.
-│   │       │   └── tools       # Contains all mixins.
-│   │       │   └── utils       # Contains helper classes.
-│   │       │   └── index.scss  # Indicator file.
-│   │       │
-│   │       └── vendor          # Contains all plugin files & custom styles.
-│   │       └── index.scss      # Indicator file.
-│   │
-│   └── *.html                  # All HTML pages files .
-└── webpack                     # Contains Webpack init code.
-│   └── plugins                 # Contains all Webpack plugins config.
-│   └── rules                   # Contains Loaders config code.
-│   └── config.js               # Contains Webpack config object.
-│   └── devServer.js            # Webpack dev server config code.
-│   └── manifest.js             # All build system constants.
-│
-└── .babelrc                    # Babel ES6 Transpiler.
-└── .editorconfig               # Keep same coding styles between code editors.
-└── .eslintrc.yml               # JavaScript Linting.
-└── .gitattributes              # Git Attributes.
-└── .gitignore                  # Ignored files in Git.
-└── .stylelintrc.yml            # SCSS/CSS Linting.
-└── browserslist                # Supported Browsers.
-└── CHANGELOG.md                # Versioning.
-└── package.json                # Package metadata.
-└── README.md                   # Manual file.
-└── webpack.config.js           # Webpack main config file.
-└── yarn.lock                   # Yarn metadata.
-```
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Deployment
-In deployment process, you have two commands:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-1. Build command
-Used to generate the final result of compiling src files into build folder. This can be achieved by running the following command:
-```
-> npm run build
-```
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-2. Preview command
-Used to create a local dev server in order to preview the final output of build process. This can be achieved by running the following command:
-```
-> npm run preview
-```
+## Learning Laravel
 
-## Built With
-- [Babel](https://babeljs.io/)
-- [Webpack](https://webpack.js.org/)
-- [Eslint](https://eslint.org/)
-- [Sass](http://sass-lang.com/)
-- [Postcss](http://postcss.org/)
-- [Stylelint](https://stylelint.io/)
-- [Bootstrap](http://getbootstrap.com/)
-- [Chart.js](http://www.chartjs.org/)
-- [Datatables](https://datatables.net/)
-- [Easy Pie Chart](http://rendro.github.io/easy-pie-chart/)
-- [Fullcalendar](https://fullcalendar.io/)
-- [Jquery](https://jquery.com/)
-- [Jquery Sparkline](https://omnipotent.net/jquery.sparkline/)
-- [Jvectormap](http://jvectormap.com/)
-- [Load Google Maps API](https://github.com/yuanqing/load-google-maps-api)
-- [Lodash](https://lodash.com/)
-- [Masonry](https://masonry.desandro.com/)
-- [Moment](https://momentjs.com/)
-- [Perfect Scrollbar](https://github.com/utatti/perfect-scrollbar)
-- [Skycons](https://darkskyapp.github.io/skycons/)
-- [Fontawesome](http://fontawesome.io/)
-- [Themify Icons](https://themify.me/themify-icons)
-- [Roboto Font](https://fonts.google.com/specimen/Roboto)
-- [Bootstrap Datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/)
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## Changelog
-#### V 1.0.0
-Initial Release
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Authors
-[Colorlib](https://colorlib.com)
+## Laravel Sponsors
 
-## More info
-- [Bootstrap Dashboards](https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/)
-- [Bootstrap Templates](https://colorlib.com/wp/free-bootstrap-templates/)
-- [HTML Templates](https://colorlib.com/wp/free-html-website-templates/)
-- [Free Admin Dashboards](https://colorlib.com/wp/free-html5-admin-dashboard-templates/)
-- [Website Templates](https://colorlib.com/wp/templates/)
-- [Free CSS Templates](https://colorlib.com/wp/free-css-website-templates/)
-- [WordPress Themes](https://colorlib.com/wp/free-wordpress-themes/)
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- [UserInsights](https://userinsights.com)
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
+- [Invoice Ninja](https://www.invoiceninja.com)
+- [iMi digital](https://www.imi-digital.de/)
+- [Earthlink](https://www.earthlink.ro/)
+- [Steadfast Collective](https://steadfastcollective.com/)
+- [We Are The Robots Inc.](https://watr.mx/)
+- [Understand.io](https://www.understand.io/)
+- [Abdel Elrafa](https://abdelelrafa.com)
+- [Hyper Host](https://hyper.host)
+- [Appoly](https://www.appoly.co.uk)
+- [OP.GG](https://op.gg)
+
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-Adminator is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the final products. But you always need to state that Colorlib is the original author of this template.
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#
