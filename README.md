@@ -1,7 +1,15 @@
-# Pasos para ejecutar el sistema
+## Pasos para ejecutar el sistema
 
+### Clonar el repositorio de git
+- Clonar el proyecto con el comando git clone 
 
-- Clonar el proyecto
+### Crear el archivo .env
+- El archivo .env nos permite alamacenar las variables de entorno, para crearlo usar el siguiente comando en la raiz del proyecto.
+- cp .env.example .env
+
+## Instalar composer 
+- Instalar las dependencias de composer con el comando composer install
+
 
 # Adminator HTML5 Admin Template
 **Adminator** is a responsive Bootstrap 4 Admin Template. It provides you with a collection of ready to use code snippets and utilities, custom pages, a collection of applications and some useful widgets. Preview of this awesome admin template available here: https://colorlib.com/polygon/adminator/index.html
