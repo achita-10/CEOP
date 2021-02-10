@@ -12,11 +12,18 @@
 ### Instalar el gestor de paquetes npm
 - Con el comando: npm install
 
-### Crear las tablas de la BD 
-- Con el siguiente comando: php artisan migration
+## Configurar la Base de Datos
 
-### Crear el usuario que nos permitira ingresar al sistema
-- Utilizando el comando: php artisan db:seed
+### Crear la BD
+- crear la bd definida en el archivo .env en el gestor de base de datos, se recomienda phpmyadmin
+
+### Crear las tablas
+- Con el siguiente comando se van a crear las tablas de la bd: php artisan migration
+
+### Crear usuario administrador
+- Se debe crear un primer registro en la tabla usuario de la bd
+- Posteriormente crear el usuario para iniciar sesión con el comando: php artisan db:seed
+- El cual define por defecto como usuario: admin y contraseña: admin
 
 
 
