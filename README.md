@@ -4,7 +4,7 @@
 - Clonar el proyecto con el comando git clone https://github.com/achita-10/ceop.git
 
 ### Crear el archivo .env
-- El archivo .env nos permite alamacenar las variables de entorno y definir el nombre de la base de datos, para crearlo usar el siguiente comando en la raiz del proyecto: cp .env.example .env
+- El archivo .env nos permite alamacenar las variables de entorno y definir datos como nombre, usuario y contraseña que tendra la base de datos, para crearlo usar el siguiente comando en la raiz del proyecto: cp .env.example .env
 
 ### Instalar composer 
 - Con el comando: composer install
