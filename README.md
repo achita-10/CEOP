@@ -9,36 +9,6 @@
 
 ### Demo Site: [Here](https://colorlib.com/polygon/adminator/index.html)
 
-## TOC
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installing & Local Development](#installing--local-development)
-- [Files/Folder Structure](#filesfolders-structure)
-- [Deployment](#deployment)
-- [Built With](#built-with)
-- [Changelog](#changelog)
-- [Authors](#authors)
-- [License](#license)
-
-
-## Getting Started
-In order to run **Adminator** on your local machine all what you need to do is to have the prerequisites stated below installed on your machine and follow the installation steps down below.
-
-#### Prerequisites
-  - Node.js
-  - Yarn or NPM
-  - Git
-  - libpng-dev *linux only*
-
-#### Installing & Local Development
-Start by typing the following commands in your terminal in order to get **Adminator** full package on your machine and starting a local development server with live reload feature.
-
-```
-> git clone https://github.com/puikinsh/Adminator-admin-dashboard.git adminator
-> cd adminator
-> npm install
-> npm run dev
-```
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
