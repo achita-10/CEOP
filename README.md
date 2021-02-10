@@ -6,11 +6,9 @@
 ### Crear el archivo .env
 - El archivo .env nos permite alamacenar las variables de entorno y definir datos como nombre, usuario y contraseña que tendra la base de datos, para crearlo usar el siguiente comando en la raiz del proyecto: cp .env.example .env
 
-### Instalar composer 
-- Con el comando: composer install
-
-### Instalar el gestor de paquetes npm
-- Con el comando: npm install
+### Ejecutar los siguientes comandos en la raiz del proyecto 
+- Para instalar composer: composer install
+- Para instalar el gestor de paquetes: npm install
 
 ## Configurar la Base de Datos
 
