@@ -1,14 +1,24 @@
 ## Pasos para ejecutar el sistema
 
 ### Clonar el repositorio de git
-- Clonar el proyecto con el comando git clone 
+- Clonar el proyecto con el comando git clone https://github.com/achita-10/ceop.git
 
 ### Crear el archivo .env
-- El archivo .env nos permite alamacenar las variables de entorno, para crearlo usar el siguiente comando en la raiz del proyecto.
+- El archivo .env nos permite alamacenar las variables de entorno y definir el nombre de la base de datos, para crearlo usar el siguiente comando en la raiz del proyecto.
 - cp .env.example .env
 
-## Instalar composer 
-- Instalar las dependencias de composer con el comando composer install
+### Instalar composer 
+- Con el comando composer install
+
+### Instalar el gestor de paquetes npm
+- Con el comando npm install
+
+### Crear las tablas de la BD 
+- Con el siguiente comando: php artisan migration
+
+### Crear el usuario que nos permitira ingresar al sistema
+- Utilizando el comando: php artisan db:seed
+
 
 
 # Adminator HTML5 Admin Template
